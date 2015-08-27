@@ -37,6 +37,8 @@
                                            selector:@selector(willEnterForeground:)
                                                name:UIApplicationWillEnterForegroundNotification
                                              object:nil];
+
+    self.scr_zoom.zoomScale = 3.1;
 }
 
 
@@ -111,4 +113,11 @@
     return [NSURL URLWithString:URL];
 }
 
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    //TODO: double tap zoom
+    //TODO: content size fixing for edges
+    return self.vw_container;
+}
 @end

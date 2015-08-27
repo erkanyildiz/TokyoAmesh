@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TAViewController : UIViewController
+@interface TAViewController : UIViewController <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *img_rain;
 @property (weak, nonatomic) IBOutlet UISlider *sld_time;
 @property (weak, nonatomic) IBOutlet UILabel *lbl_time;
 @property (weak, nonatomic) IBOutlet UILabel *lbl_ago;
+@property (weak, nonatomic) IBOutlet UIScrollView *scr_zoom;
+@property (weak, nonatomic) IBOutlet UIView *vw_container;
 
 - (IBAction)onChange_slider:(id)sender;
 
