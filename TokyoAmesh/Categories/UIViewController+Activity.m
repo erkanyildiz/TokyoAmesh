@@ -2,32 +2,33 @@
 //  UIViewController+Activity.m
 //  TokyoAmesh
 //
-//  Created by Erkan YILDIZ on 20150826.
-//  Copyright (c) 2015 Erkan YILDIZ. All rights reserved.
+//  Created by erkanyildiz on 20150826.
+//  Copyright (c) 2015 erkanyildiz. All rights reserved.
 //
 
 #import "UIViewController+Activity.h"
 
 @implementation UIViewController (Activity)
+
 NSInteger activityCount;
 UIActivityIndicatorView* indicator;
 UIView* overlayView;
 
--(void)showActivityIndicator;
+- (void)showActivityIndicator;
 {
-    if(activityCount == 0)
+    if (activityCount == 0)
         [self performSelector:@selector(show) withObject:nil afterDelay:0.1];
     
     activityCount++;
 }
 
 
--(void)show
+- (void)show
 {
     indicator = [UIActivityIndicatorView.alloc initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     indicator.hidesWhenStopped = YES;
     [indicator startAnimating];
-    indicator.center = (CGPoint){UIScreen.mainScreen.bounds.size.width*0.5,UIScreen.mainScreen.bounds.size.height*0.5};
+    indicator.center = (CGPoint){UIScreen.mainScreen.bounds.size.width * 0.5,UIScreen.mainScreen.bounds.size.height * 0.5};
     [UIApplication.sharedApplication.windows.lastObject addSubview:indicator];
 
     CGRect r = indicator.frame;
@@ -42,11 +43,11 @@ UIView* overlayView;
 }
 
 
--(void)hideActivityIndicator
+- (void)hideActivityIndicator
 {
     activityCount--;
 
-    if(activityCount == 0)
+    if (activityCount == 0)
     {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(show) object:nil];
         

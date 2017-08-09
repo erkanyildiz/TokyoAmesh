@@ -2,20 +2,28 @@
 //  TAViewController.m
 //  TokyoAmesh
 //
-//  Created by Erkan YILDIZ on 20150826.
-//  Copyright (c) 2015 Erkan YILDIZ. All rights reserved.
+//  Created by erkanyildiz on 20150826.
+//  Copyright (c) 2015 erkanyildiz. All rights reserved.
 //
 
 #import "TAViewController.h"
-#import "SDWebImageManager.h"
+#import "TAImageManager.h"
 #import "UIViewController+Activity.h"
+#import "TAOverlayRenderer.h"
 
 @interface TAViewController ()
 {
-    NSDateFormatter* df_URL;
     NSDateFormatter* df_timeDisplay;
+    TAOverlayRenderer* overlayRenderer;
 }
+
+@property (weak, nonatomic) IBOutlet UISlider* sld_time;
+@property (weak, nonatomic) IBOutlet UILabel* lbl_time;
+@property (weak, nonatomic) IBOutlet UILabel* lbl_ago;
+@property (weak, nonatomic) IBOutlet MKMapView* map_main;
+
 @end
+
 
 @implementation TAViewController
 
@@ -24,9 +32,6 @@
     [super viewDidLoad];
     
     [NSTimeZone setDefaultTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Tokyo"]];
-
-    df_URL = NSDateFormatter.new;
-    df_URL.dateFormat = @"YYYYMMddHHmm";
 
     df_timeDisplay = NSDateFormatter.new;
     df_timeDisplay.dateFormat = @"HH:mm";
@@ -38,24 +43,33 @@
                                                name:UIApplicationWillEnterForegroundNotification
                                              object:nil];
 
-    self.scr_zoom.zoomScale = 3.1;
+    [self.map_main addOverlay:TAOverlay.new];
+    
+    //NOTE: initial map position
+    CLLocationCoordinate2D hachiko = (CLLocationCoordinate2D){35.6583959, 139.6978787};
+    MKCoordinateRegion hachiko5km = MKCoordinateRegionMakeWithDistance(hachiko, 5000, 5000);
+    [self.map_main setRegion:hachiko5km animated:YES];
 }
 
 
--(UIStatusBarStyle)preferredStatusBarStyle
+- (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
 }
 
 
--(BOOL)prefersStatusBarHidden
+- (BOOL)prefersStatusBarHidden
 {
     return NO;
 }
 
 
+#pragma mark -
+
+
 -(void)willEnterForeground:(NSNotification*)notification
 {
+    //NOTE: bring slider to the lastest after app comes back from background
     [self.sld_time setValue:24];
     [self onChange_slider:self.sld_time];
 }
@@ -72,52 +86,38 @@
     
     //NOTE: requesting rain radar image with caching
     [self showActivityIndicator];
-    NSURL* URL = [self ameshURLForMinutesOffset:minutes];
-    [SDWebImageManager.sharedManager downloadImageWithURL:URL options:0 progress:nil
-                                                completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) 
+
+    [TAImageManager.sharedInstance ameshImageForDate:[self roundedDateForMinutesOffset:minutes] completion:^(UIImage *image, NSError *error)
     {
-        //NOTE: setting image view on completion, if the slider value is still the same
-        if (image && [imageURL isEqual:[self ameshURLForMinutesOffset:(24 - slider.value) * 5]])
-        {
-            self.img_rain.image = image;
-        }
-        
+        //TODO: update the map for downloaded rain image, if the slider value is still the same
+        [overlayRenderer setNeedsDisplayInMapRect:self.map_main.visibleMapRect];
+
         [self hideActivityIndicator];
     }];
 
     //NOTE: setting time labels
     self.lbl_time.text = [df_timeDisplay stringFromDate:[self roundedDateForMinutesOffset:minutes]];
-    self.lbl_ago.text = (minutes == 0)?@"Latest":[NSString stringWithFormat:@"%li mins ago", minutes];
+    self.lbl_ago.text = (minutes == 0) ? @"Latest" : [NSString stringWithFormat:@"%li mins ago", (long)minutes];
 }
 
 
--(NSDate*)roundedDateForMinutesOffset:(NSInteger)minutesOffset
+- (NSDate *)roundedDateForMinutesOffset:(NSInteger)minutesOffset
 {
     //NOTE: backwards time offset up to 120 mins
-    NSDate* targetDate = [NSDate.date dateByAddingTimeInterval:-minutesOffset*60];
+    NSDate* targetDate = [NSDate.date dateByAddingTimeInterval: -minutesOffset * 60];
     
     //NOTE: rounding minute digit to 0 or 5
-    NSTimeInterval time = floor([targetDate timeIntervalSinceReferenceDate]/300.0)*300.0;
+    NSTimeInterval time = floor([targetDate timeIntervalSinceReferenceDate] / 300.0) * 300.0;
     targetDate = [NSDate dateWithTimeIntervalSinceReferenceDate:time];
     
     return targetDate;
 }
 
 
--(NSURL*)ameshURLForMinutesOffset:(NSInteger)minutesOffset
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id <MKOverlay>)overlay
 {
-    NSDate* roundedDate = [self roundedDateForMinutesOffset:minutesOffset];
-
-    NSString* URL = [NSString stringWithFormat:@"http://tokyo-ame.jwa.or.jp/mesh/000/%@.gif", [df_URL stringFromDate:roundedDate]];
-
-    return [NSURL URLWithString:URL];
+    overlayRenderer = [TAOverlayRenderer.alloc initWithOverlay:overlay];
+    return overlayRenderer;
 }
 
-
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
-    //TODO: double tap zoom
-    //TODO: content size fixing for edges
-    return self.vw_container;
-}
 @end
