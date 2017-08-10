@@ -90,6 +90,7 @@
     [TAImageManager.sharedInstance ameshImageForDate:[self roundedDateForMinutesOffset:minutes] completion:^(UIImage *image, NSError *error)
     {
         //TODO: update the map for downloaded rain image, if the slider value is still the same
+        //TODO: handle if radar image is not ready yet due to server delays (esp. first minute of every 5 min interval)
         [overlayRenderer setNeedsDisplayInMapRect:overlayRenderer.overlay.boundingMapRect];
 
         [self hideActivityIndicator];
