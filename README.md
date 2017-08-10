@@ -11,3 +11,9 @@ A simple iPhone application for viewing real-time Tokyo Amesh Rainfall Radar ima
   ![legend](http://tokyo-ame.jwa.or.jp/en/images/hanrei.gif)
  
  - Original website: http://tokyo-ame.jwa.or.jp ( English version: http://tokyo-ame.jwa.or.jp/en )
+
+# ScreenShots
+
+![tokyoamesh1](https://user-images.githubusercontent.com/1222652/29176367-a48e725e-7e26-11e7-8e1d-32753472d849.PNG)
+![tokyoamesh2](https://user-images.githubusercontent.com/1222652/29176365-a48b95fc-7e26-11e7-81ff-366fa811fb61.PNG)
+![tokyoamesh3](https://user-images.githubusercontent.com/1222652/29176366-a48cd8b8-7e26-11e7-8b15-a1ff8653d3ff.PNG)
