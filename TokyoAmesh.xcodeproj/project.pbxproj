@@ -10,6 +10,7 @@
 		D20313C51F397FEA009D0F51 /* TAOverlayRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = D20313C41F397FEA009D0F51 /* TAOverlayRenderer.m */; };
 		D20313CD1F3B41D6009D0F51 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D20313C91F3B41D6009D0F51 /* InfoPlist.strings */; };
 		D20313CE1F3B41D6009D0F51 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D20313CA1F3B41D6009D0F51 /* main.m */; };
+		D20313D11F3C1A1A009D0F51 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D20313D01F3C1A1A009D0F51 /* LaunchScreen.storyboard */; };
 		D24906CC1B8F1B1400388D0A /* UIViewController+Activity.m in Sources */ = {isa = PBXBuildFile; fileRef = D24906CB1B8F1B1400388D0A /* UIViewController+Activity.m */; };
 		D2BAB0A217EC8EE600807D0D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2BAB0A117EC8EE600807D0D /* Foundation.framework */; };
 		D2BAB0A417EC8EE600807D0D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2BAB0A317EC8EE600807D0D /* CoreGraphics.framework */; };
@@ -29,6 +30,7 @@
 		D20313CA1F3B41D6009D0F51 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D20313CB1F3B41D6009D0F51 /* TokyoAmesh-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TokyoAmesh-Info.plist"; sourceTree = "<group>"; };
 		D20313CC1F3B41D6009D0F51 /* TokyoAmesh-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TokyoAmesh-Prefix.pch"; sourceTree = "<group>"; };
+		D20313D01F3C1A1A009D0F51 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D24906CA1B8F1B1400388D0A /* UIViewController+Activity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Activity.h"; sourceTree = "<group>"; };
 		D24906CB1B8F1B1400388D0A /* UIViewController+Activity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Activity.m"; sourceTree = "<group>"; };
 		D2BAB09E17EC8EE600807D0D /* TokyoAmesh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TokyoAmesh.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +70,7 @@
 				D20313CA1F3B41D6009D0F51 /* main.m */,
 				D20313CB1F3B41D6009D0F51 /* TokyoAmesh-Info.plist */,
 				D20313CC1F3B41D6009D0F51 /* TokyoAmesh-Prefix.pch */,
+				D20313D01F3C1A1A009D0F51 /* LaunchScreen.storyboard */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2BAB0BA17EC8EE600807D0D /* Images.xcassets in Resources */,
+				D20313D11F3C1A1A009D0F51 /* LaunchScreen.storyboard in Resources */,
 				D20313CD1F3B41D6009D0F51 /* InfoPlist.strings in Resources */,
 				D2BAB0D717EC8FF400807D0D /* TAViewController.xib in Resources */,
 			);
@@ -302,7 +306,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -320,7 +323,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
