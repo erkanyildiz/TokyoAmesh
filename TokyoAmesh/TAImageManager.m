@@ -12,6 +12,7 @@
 @interface TAImageManager ()
 {
     NSDateFormatter* dateFormatter;
+    NSCache* cache;
 }
 @end
 
@@ -35,6 +36,7 @@ static UIImage* last = nil;
         [NSTimeZone setDefaultTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Tokyo"]];
         dateFormatter = NSDateFormatter.new;
         dateFormatter.dateFormat = @"YYYYMMddHHmm";
+        cache = NSCache.new;
     }
     return self;
 }
@@ -42,10 +44,22 @@ static UIImage* last = nil;
 
 - (void)ameshImageForDate:(NSDate *)date completion:(void (^)(UIImage* image, NSError* error))handler
 {
-    //TODO: use cache
+    UIImage* cachedImage = [cache objectForKey:date];
+    if (cachedImage)
+    {
+        last = cachedImage;
+        handler(cachedImage, nil);
+        return;
+    }
+
     NSURLRequest* request = [[self ameshURLStringForDate:date] request];
     [request fetchImage:^(UIImage *image, NSError *error)
     {
+        if (image)
+        {
+            [cache setObject:image forKey:date];
+        }
+
         last = image;
         handler(image, error);
     }];

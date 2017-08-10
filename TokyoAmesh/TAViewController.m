@@ -90,7 +90,7 @@
     [TAImageManager.sharedInstance ameshImageForDate:[self roundedDateForMinutesOffset:minutes] completion:^(UIImage *image, NSError *error)
     {
         //TODO: update the map for downloaded rain image, if the slider value is still the same
-        [overlayRenderer setNeedsDisplayInMapRect:self.map_main.visibleMapRect];
+        [overlayRenderer setNeedsDisplayInMapRect:overlayRenderer.overlay.boundingMapRect];
 
         [self hideActivityIndicator];
     }];
