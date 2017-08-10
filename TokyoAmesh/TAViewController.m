@@ -47,7 +47,7 @@
     
     //NOTE: initial map position
     CLLocationCoordinate2D hachiko = (CLLocationCoordinate2D){35.6583959, 139.6978787};
-    MKCoordinateRegion hachiko5km = MKCoordinateRegionMakeWithDistance(hachiko, 5000, 5000);
+    MKCoordinateRegion hachiko5km = MKCoordinateRegionMakeWithDistance(hachiko, 10000, 10000);
     [self.map_main setRegion:hachiko5km animated:YES];
 }
 
